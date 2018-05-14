@@ -24,7 +24,19 @@ export class HeroesComponent implements OnInit {
      this.service.getHeroes().subscribe(heroesSour=>this.heroes=heroesSour);
   }
 
+  add(heroName:string):void{
+    heroName=heroName.trim();
+    if(!heroName){
+      return ;
+    }
+    
+    this.service.addHero({name:heroName} as Hero).subscribe(hero=>this.heroes.push(hero));
+  }
 
+  delete(hero:Hero):void{
+    this.service.deleteHero(hero).subscribe();
+    this.heroes=this.heroes.filter(h=>h!==hero);
+  }
   // selectedHero: Hero;
   // onSelect(hero) {
   //   this.selectedHero = hero;
